@@ -1,0 +1,386 @@
+Ex. 4 React Lab Exercise: Event Handling in React 
+  Aim 
+To understand and implement event handling in React using events such as onClick, onChange, 
+and onSubmit. 
+ 
+1. What is Event Handling? 
+Event handling means responding to an action performed by the user. 
+Examples: 
+• Clicking a button → onClick 
+• Typing in a textbox → onChange 
+• Submitting a form → onSubmit 
+• Moving the mouse → onMouseOver 
+Basic Flow 
+User Action 
+     ↓ 
+React Event 
+     ↓ 
+Event Handler Function 
+     ↓ 
+State / UI Update 
+ 
+Step 1: Create React Project 
+Open the terminal: 
+npm create vite@latest event-lab 
+Select: 
+Framework: React 
+Variant: JavaScript 
+Then: 
+cd event-lab 
+npm install 
+npm run dev 
+ 
+Step 2: Create a Simple Button 
+Open: 
+src/App.jsx 
+
+Replace the code with: 
+function App() { 
+ 
+  function handleClick() { 
+    alert("Button was clicked!"); 
+  } 
+ 
+  return ( 
+    <div> 
+      <h1>React Event Handling</h1> 
+ 
+      <button onClick={handleClick}> 
+        Click Me 
+      </button> 
+    </div> 
+  ); 
+} 
+ 
+export default App; 
+Output 
+React Event Handling 
+ 
+[ Click Me ] 
+When the student clicks the button: 
+Button was clicked! 
+ 
+Step 3: Understanding onClick 
+The important line is: 
+<button onClick={handleClick}> 
+It means: 
+When the button is clicked, execute handleClick. 
+❌ Incorrect 
+<button onClick={handleClick()}> 
+This calls the function during rendering. 
+✅ Correct 
+<button onClick={handleClick}> 
+The function is called when the event occurs. 
+ 
+Step 4: Event Handling with State 
+Now let's display the number of button clicks. 
+
+Import useState: 
+import { useState } from "react"; 
+ 
+function App() { 
+ 
+  const [count, setCount] = useState(0); 
+ 
+  function handleClick() { 
+    setCount(count + 1); 
+  } 
+ 
+  return ( 
+    <div> 
+      <h1>Click Counter</h1> 
+ 
+      <p>Button clicked: {count} times</p> 
+ 
+      <button onClick={handleClick}> 
+        Click Me 
+      </button> 
+    </div> 
+  ); 
+} 
+ 
+export default App; 
+Output 
+Initially: 
+Click Counter 
+ 
+Button clicked: 0 times 
+ 
+[ Click Me ] 
+After one click: 
+Button clicked: 1 times 
+After three clicks: 
+Button clicked: 3 times 
+ 
+Step 5: onChange Event 
+The onChange event is commonly used with input fields. 
+import { useState } from "react"; 
+ 
+function App() { 
+ 
+  const [name, setName] = useState(""); 
+ 
+  function handleChange(event) { 
+    setName(event.target.value); 
+  } 
+
+ 
+  return ( 
+    <div> 
+      <h1>Student Name</h1> 
+ 
+      <input 
+        type="text" 
+        value={name} 
+        onChange={handleChange} 
+        placeholder="Enter your name" 
+      /> 
+ 
+      <p>Hello, {name}</p> 
+    </div> 
+  ); 
+} 
+ 
+export default App; 
+Flow 
+Student types "Ajith" 
+        ↓ 
+      onChange 
+        ↓ 
+handleChange(event) 
+        ↓ 
+event.target.value 
+        ↓ 
+setName(...) 
+        ↓ 
+React updates UI 
+Output 
+Student Name 
+ 
+[ Ajith              ] 
+ 
+Hello, Ajith 
+ 
+Step 6: Understanding the Event Object 
+React provides an event object to the event handler. 
+function handleChange(event) { 
+  console.log(event); 
+} 
+For an input: 
+event.target 
+refers to the input element. 
+And: 
+event.target.value 
+
+gives the value typed by the user. 
+For example: 
+Input: 
+[ Ajith ] 
+ 
+event.target.value 
+        ↓ 
+     "Ajith" 
+ 
+Step 7: Handling Form Submission 
+Create a simple student form: 
+import { useState } from "react"; 
+ 
+function App() { 
+ 
+  const [name, setName] = useState(""); 
+ 
+  function handleSubmit(event) { 
+    event.preventDefault(); 
+ 
+    alert("Student Name: " + name); 
+  } 
+ 
+  return ( 
+    <div> 
+      <h1>Student Registration</h1> 
+ 
+      <form onSubmit={handleSubmit}> 
+ 
+        <input 
+          type="text" 
+          placeholder="Enter student name" 
+          value={name} 
+          onChange={(event) => setName(event.target.value)} 
+        /> 
+ 
+        <button type="submit"> 
+          Submit 
+        </button> 
+ 
+      </form> 
+    </div> 
+  ); 
+} 
+ 
+export default App; 
+Important 
+event.preventDefault(); 
+prevents the browser's default form submission behavior, allowing React to handle the submission. 
+ 
+
+Step 8: Multiple Events 
+React can handle multiple events in the same component. 
+import { useState } from "react"; 
+ 
+function App() { 
+ 
+  const [name, setName] = useState(""); 
+ 
+  function handleClick() { 
+    alert("Button clicked!"); 
+  } 
+ 
+  function handleChange(event) { 
+    setName(event.target.value); 
+  } 
+ 
+  return ( 
+    <div> 
+ 
+      <h1>React Events</h1> 
+ 
+      <button onClick={handleClick}> 
+        Click Me 
+      </button> 
+ 
+      <br /><br /> 
+ 
+      <input 
+        type="text" 
+        value={name} 
+        onChange={handleChange} 
+        placeholder="Enter name" 
+      /> 
+ 
+      <p>Name: {name}</p> 
+ 
+    </div> 
+  ); 
+} 
+ 
+export default App; 
+ 
+Common React Events 
+Event 
+Purpose 
+Example 
+onClick 
+Mouse click 
+Button 
+onChange 
+Input value changes 
+Textbox 
+onSubmit 
+Form submission 
+Form 
+onMouseOver 
+Mouse enters element <div> 
+onMouseOut 
+Mouse leaves element <div> 
+onKeyDown 
+Keyboard key 
+pressed 
+Input 
+onFocus 
+Element receives 
+Input 
+
+Event 
+Purpose 
+Example 
+focus 
+onBlur 
+Element loses focus 
+Input 
+ 
+Mini Lab: Student Greeting App 
+Problem 
+Create a React application that: 
+1. Accepts a student's name. 
+2. Displays the entered name. 
+3. Contains a Greet button. 
+4. When clicked, displays: 
+Welcome, Ajith! 
+Expected Flow 
+Enter Name 
+    ↓ 
+onChange 
+    ↓ 
+Update State 
+    ↓ 
+Click Greet 
+    ↓ 
+onClick 
+    ↓ 
+Display Greeting 
+ 
+Key Concept 
+Remember: 
+onClick   → Click 
+onChange  → Input change 
+onSubmit  → Form submission 
+And: 
+function handleClick() { 
+   // event action 
+} 
+connected using: 
+<button onClick={handleClick}> 
+  One-line definition 
+React event handling allows a component to respond to user actions such as clicks, 
+typing, and form submission. 
+
+ 
+✅ Student Practice Exercises 
+Exercise 1 – Counter 
+Create: 
+[ + ] 
+ 
+Count: 0 
+ 
+[ - ] 
+• + increases count. 
+• - decreases count. 
+Exercise 2 – Show/Hide 
+Create a button: 
+[ Show Message ] 
+Clicking it should display: 
+Welcome to React! 
+Clicking again should hide the message. 
+Exercise 3 – Student Form 
+Create inputs for: 
+Name 
+Register Number 
+Department 
+When Submit is clicked, display: 
+Student Details 
+Name: Ajith 
+Register No: 101 
+Department: CSE 
+ 
+ 
+ 
+ Quick Revision 
+React Event Handling 
+        │ 
+        ├── onClick 
+        │      └── Button click 
+        │ 
+        ├── onChange 
+        │      └── Input change 
+
+        │ 
+        ├── onSubmit 
+        │      └── Form submission 
+        │ 
+        └── Event Object 
+               ├── event.target 
+               └── event.target.value 
+Result 
+Thus, event handling in React was implemented successfully using onClick, onChange, and 
+onSubmit events. 
+ 
