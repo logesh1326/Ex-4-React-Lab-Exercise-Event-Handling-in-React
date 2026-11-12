@@ -1,75 +1,60 @@
-# Ex. 4 React Lab Exercise: Event Handling in React
+# React Lab Exercise 4: Event Handling in React
+## Name: LOGESH S
+## Roll no: 2305001014
+## Department: CSE
 
-## Exercise Number
-Exercise 4
+## AIM
+### To understand and implement event handling in React using events such as onClick, onChange, and onSubmit. 
 
-## Subject
-AI1067 - Modern Web Application Development (React JS Lab)
-
-## Student Details
-- **Name:** LOGESH S
-- **Roll No:** 2305001014
-- **Department:** B.Tech CSE
-- **College:** IST, NMV University
-
-## Objective
-To understand and implement event handling in React using events such as onClick, onChange,
-
-## Description
-Ex. 4 React Lab Exercise: Event Handling in React 
-  Aim 
-To understand and implement event handling in React using events such as onClick, onChange, 
-and onSubmit. 
- 
-1. What is Event Handling? 
-Event handling means responding to an action performed by the user. 
-Examples: 
-• Clicking a button → onClick 
-• Typing in a textbox → onChange 
-• Submitting a form → onSubmit 
-• Moving the mouse → onMouseOver 
-Basic Flow 
-User Action 
-     ↓ 
-React Event 
-     ↓ 
-Event Handler Function 
-     ↓ 
-State / UI Update 
- 
-Step 1: Create React Project 
-Open the terminal: 
-npm create vite@latest event-lab 
-Select: 
-Framework: React 
-Variant: JavaScript 
-Then: 
-cd event-lab 
-npm install 
-npm run dev 
- 
-Step 2: Create a Simple Button 
-Open: 
-src/App.jsx 
-
-Replace the code with: 
-function App() { 
- 
-  functi
-
-## Technologies Used
-- React JS
-- Vite
-- JavaScript (JSX)
-- HTML5 / CSS3
-
-## How to Run
-```bash
-npm create vite@latest my-app -- --template react
-cd my-app
-npm install
-npm run dev
+## PROGRAM
+### App.jsx  
+### i) onClick Event function
+```py
+App() {   function handleClick() {     alert("Button was clicked!"); 
+  }   return ( 
+    <div> 
+      <h1>React Event Handling</h1> 
+      <button onClick={handleClick}> 
+        Click Me 
+      </button> 
+    </div> 
+  ); 
+} export default App;
 ```
+ 
+### ii) onClick with State
+```py
+import { useState } from "react"; function App() {   const [count, setCount] = useState(0);   function handleClick() {     setCount(count + 1); 
+  }   return ( 
+    <div> 
+      <h1>Click Counter</h1> 
+      <h2>Button clicked: {count} times</h2> 
+      <button onClick={handleClick}> 
+        Click Me 
+      </button> 
+    </div> 
+  ); 
+} export default App; 
+ ```
+### iii) onChange Event 
+```py
+import { useState } from "react"; function App() {   const [name, setName] = useState("");   function handleChange(event) {     setName(event.target.value); 
+  }   return ( 
+    <div> 
+      <h1>Student Name</h1> 
+      <input 
+        type="text" 
+        placeholder="Enter your name"         onChange={handleChange} 
+      /> 
+      <h2>Hello, {name}</h2> 
+    </div> 
+  ); 
+} export default App; 
+```
+## OUTPUT
+<img width="1125" height="401" alt="image" src="https://github.com/user-attachments/assets/d3db34a0-13a6-4846-bd47-e8b26a93f530" />
+<img width="1125" height="413" alt="image" src="https://github.com/user-attachments/assets/82e76a76-6ffd-42eb-bc57-f9342489ed05" />
+<img width="1125" height="422" alt="image" src="https://github.com/user-attachments/assets/4cc987b0-1825-445e-be70-ba8cf1542947" />
 
-## Exercise Content
-See `exercise.txt` for complete exercise content and source code.
+## RESULT
+### Thus, React event handling was successfully implemented using the onClick and onChange events. The application responded to button clicks, maintained a click counter using useState, and displayed the student's name dynamically based on user input. 
